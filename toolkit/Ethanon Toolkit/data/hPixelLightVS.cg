@@ -41,15 +41,6 @@ uniform float2 flipMul;
 uniform float2 cameraPos;
 uniform float depth;
 
-uniform float2 parallaxOrigin;
-uniform float parallaxIntensity;
-uniform float3 entityPos3D;
-float2 computeParallaxOffset()
-{
-	const float2 screenSpacePos = float2(entityPos3D.x, entityPos3D.y)-cameraPos;
-	return ((screenSpacePos-parallaxOrigin)/screenSize.x)*entityPos3D.z*parallaxIntensity;
-}
-
 struct SPRITE_TRANSFORM
 {
 	float4 position;
@@ -65,7 +56,6 @@ SPRITE_TRANSFORM transformSprite_ppl(float3 position)
 
 	// project the vertex on the screen
 	newPos -= float4(screenSize/2,0,0)+float4(cameraPos,0,0);
-	newPos += float4(computeParallaxOffset(),0,0);
 	newPos *= float4(1,-1,1,1);
 	r.position = mul(viewMatrix, newPos);
 	return r;

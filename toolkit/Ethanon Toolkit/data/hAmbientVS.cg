@@ -44,15 +44,6 @@ uniform float2 flipMul;          // this is multiplied by the vertex position do
 uniform float2 cameraPos;
 uniform float depth;
 
-uniform float2 parallaxOrigin;
-uniform float parallaxIntensity;
-uniform float3 entityPos3D;
-float2 computeParallaxOffset()
-{
-	const float2 screenSpacePos = float2(entityPos3D.x, entityPos3D.y)-cameraPos;
-	return ((screenSpacePos-parallaxOrigin)/screenSize.x)*entityPos3D.z*parallaxIntensity;
-}
-
 // returns the sprite vertex position according to it's
 // origin in screen space and rotation angle
 float4 transformSprite(float3 position)
@@ -67,8 +58,7 @@ float4 transformSprite(float3 position)
 	newPos = mul(rotationMatrix, newPos);
 
 	// position the sprite according to the screen space
-	newPos += float4(entityPos,0,0)-float4(screenSize/2,0,0)-float4(cameraPos,0,0)
-		+float4(computeParallaxOffset(),0,0);
+	newPos += float4(entityPos,0,0)-float4(screenSize/2,0,0)-float4(cameraPos,0,0);
 
 	// inverts the y coordinate
 	newPos *= float4(1,-1,1,1);

@@ -61,19 +61,9 @@ float ETHParallaxManager::GetIntensity() const
 void ETHParallaxManager::SetShaderParameters(const VideoConstPtr& video, const ShaderPtr& shader, const Vector3& entityPos,
 											 const float& individualParallaxIntensity, const bool drawToTarget) const
 {
-	if (!drawToTarget)
-	{
-		const float parallaxIntensity = GetIntensity() * individualParallaxIntensity;
-		#ifdef GLES2
-			shader->SetConstant(GS_L("entityPos3D_parallaxIntensity"), Vector4(entityPos, parallaxIntensity));
-		#else
-			shader->SetConstant(GS_L("entityPos3D"), entityPos);
-			shader->SetConstant(GS_L("parallaxIntensity"), parallaxIntensity);
-		#endif
-		shader->SetConstant(GS_L("parallaxOrigin"), GetInScreenOrigin(video));
-	}
-	else
-	{
-		shader->SetConstant(GS_L("parallaxIntensity"), 0.0f);
-	}
+	GS2D_UNUSED_ARGUMENT(video);
+	GS2D_UNUSED_ARGUMENT(shader);
+	GS2D_UNUSED_ARGUMENT(entityPos);
+	GS2D_UNUSED_ARGUMENT(individualParallaxIntensity);
+	GS2D_UNUSED_ARGUMENT(drawToTarget);
 }
