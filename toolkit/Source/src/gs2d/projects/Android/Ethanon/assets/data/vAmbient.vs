@@ -28,12 +28,6 @@ uniform vec2 params[10];
 
 uniform float spaceLength;
 
-float2 computeParallaxOffset()
-{
-	float2 screenSpacePos = float2(entityPos3D_parallaxIntensity.x, entityPos3D_parallaxIntensity.y) - cameraPos;
-	return ((screenSpacePos - parallaxOrigin) / screenSize.x) * entityPos3D_parallaxIntensity.z * entityPos3D_parallaxIntensity.w;
-}
-
 float4 transformSprite(float3 position)
 {
 	float4 newPos = float4(position, 1.0);
